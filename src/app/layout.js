@@ -9,7 +9,7 @@ const Poppins_font = Poppins({
   variable: '--font-poppins'
 })
 export const metadata = {
-  title: "Sun side up",
+  title: "Sunsideup",
   description: "An solution to a problem",
 };
 
@@ -19,7 +19,11 @@ export default function RootLayout({ children }) {
       <body>
         <div className="nav_wrapper">
         <div className="nav_container">
-        <div className="logo"></div>
+        <div className="logo">
+          <h3>
+          SunSideUp
+          </h3>
+        </div>
           
           <div className={`${Poppins_font.variable} nav_items`}>
             <a href="/">Home</a>

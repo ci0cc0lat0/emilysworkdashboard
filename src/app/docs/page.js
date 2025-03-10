@@ -20,6 +20,19 @@ const Poppins_font = Poppins({
   variable: '--font-poppins'
 })
 
+function Result_item({title,market,group,document,date,key}){
+  return(
+    <div key={key} className={r.results_items} >
+            <div className={r.title}>
+              <a href={`/docs/${title}`}><p>{title}</p></a>
+              </div>
+            <div className={r.market}><p>{market || <i>null</i>}</p></div>
+            <div className={r.group}><p>{group || <i>null</i>}</p></div>
+            <div className={r.document}><p>{document || <i>null</i>}</p></div>
+            <div className={r.date}><p>{date || <i>null</i>}</p></div>
+      </div>
+  )
+}
 /**
  * Belongs to the render function
  * @param {*} date_string date string with time
@@ -144,22 +157,33 @@ function Render() {
     {
       key: "title",
       label: "Title",
+      id:r.t_title,
+      class:r.title
     },
     {
       key: "Market",
-      label: "Market"
+      label: "Market",
+      id:r.t_market,
+      class:r.market
+
     },
     {
       key: "Group",
-      label: "Group"
+      label: "Group",
+      id:r.t_group,
+      class:r.group
     },
     {
       key: "Document",
-      label: "Document"
+      label: "Document",
+      id:r.t_document,
+      class:r.document
     },
     {
       key: "Date",
-      label: "Date"
+      label: "Date",
+      id:r.date,
+      class:r.date
     }
   ]
 
@@ -240,8 +264,43 @@ function Render() {
             
           </div>
         </div>
-
         </div >
+
+        {/* <div className={r.results_tables}>
+          <div className={r.results_header}>
+            {columns.map((column) =>{
+              let params = new URLSearchParams();
+              let sortParam = ''
+              if(column.key === "title") sortParam = state_name;
+              else if(column.key === "Date") sortParam = state_meeting;
+              if (sortParam) params.set('sort',sortParam)
+              return(
+                <div key={column.key} className={column.class}>
+                  {sortParam ? (
+                    <Link href={`/docs?${params.toString()}`}>
+                      <p>{column.label}</p>
+                  </Link>) : <p>{column.label}</p>}
+                </div>
+              )
+            })}
+
+            
+          </div>
+          {data?.data.hits.map((item, index) => {
+                return (
+                  <Result_item 
+                    key={index}
+                    title={item.title}
+                    market={item.Market}
+                    group={item.Group}
+                    document={item.Document}
+                    date={item.Date}
+                  />
+                )
+              })}
+          
+        </div> */}
+
         <div className={s.display_results}>
           <table className={r.table_a}>
             <tbody className={r.table_tbody}>
@@ -261,9 +320,9 @@ function Render() {
                   
                   
                   return(
-                    <th key={column.key}>
+                    <th id={column.id} key={column.key}>
                       {sortParam ? (
-                        <Link className={r.linker} href={`/docs?${params.toString()}`}>
+                        <Link className={r.linker}  href={`/docs?${params.toString()}`}>
                           {column.label}
                         </Link>) : (column.label)
                        
@@ -279,7 +338,7 @@ function Render() {
                 return (
                   // Order of the columns in the table. Should match the headers
                   <tr key={index}>
-                    <td>
+                    <td >
                       <a href={`/docs/${item.title}`}>
                         {item.title}
                       </a>
